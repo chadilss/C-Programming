@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>														// Chad Finch 	Student ID# 16151947		Assignment5		159.101 @ semester 2
+
+FILE *f;
+
+void breakstr(char *s1, char *s2, char *s3, char c);
+
+char line[100], filename[65], search[65], name[65], telephone[65], first[65], second[65], other[65];
+char delimiter;
+bool printed;
+int len;
+
+int main(){
+	len = 0;
+	printed = false;
+	printf("Type in a filename: ");
+	gets(filename);
+	f = fopen(filename, "r");
+	if(f == NULL){
+		printf("ERROR: Unable to open %s", filename);
+		exit(0);
+	}
+	printf("Enter the name of the person whose number is required: ");
+	gets(search);
+	while(fgets(line, 100, f) != NULL){
+		len = strlen(line);
+		line[len - 1] = '\0';
+		delimiter = ';';
+		breakstr(line, name, telephone, delimiter);
+		delimiter = ',';
+		breakstr(name, second, first, delimiter);
+		strcpy(other, first);
+		strcat(other, " ");
+		strcat(other, second);
+		if((strcmp(other, search) == 0) || (strcmp(name, search) == 0)){
+			printf("The number for %s is %s", other, telephone);
+			printed = true;
+		}
+	}
+	fclose(f);
+	if(printed == false){
+		printf("%s does not have a listed number.", search);
+	}
+}
+
+void breakstr(char *s1, char *s2, char *s3, char c){
+	int i, j;
+	i = 0;
+	while(s1[i] != c){
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	i++;
+	j = 0;
+	while(s1[i] != '\0'){
+		s3[j] = s1[i];
+		i++;
+		j++;
+	}
+	s3[j] = '\0';
+}
