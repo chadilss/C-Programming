@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <string.h>
+														// // Chad Finch 	Student ID# 16151947		Assignment4		159.101 @ semester 2
+
+int readline(char *string);
+int countgaps(char *string2);
+void display(char *string3, int a, int b);
+
+char firstLine[60], secondLine[60];
+int length, length2, gaps, gaps2, numLetters, numLetters2, totalGaps, totalGaps2;
+int smallGap, smallGap2, numlongGaps, numlongGaps2;
+
+int main(){
+	length = 0;
+	gaps = 0;
+	gaps2 = 0;
+	numLetters = 0;
+	numLetters2 = 0;
+	totalGaps = 0;
+	totalGaps2 = 0;
+	numlongGaps = 0;
+	numlongGaps2 = 0;
+	printf("Enter first line of text: ");
+	length = readline(firstLine);
+	gaps = countgaps(firstLine);
+	printf("\nEnter second line of text: ");
+	length2 = readline(secondLine);
+	gaps2 = countgaps(secondLine);
+	numLetters = length - gaps;
+	numLetters2 = length2 - gaps2;
+	totalGaps = 50 - numLetters;
+	totalGaps2 = 50 - numLetters2;
+	smallGap = totalGaps / gaps;
+	smallGap2 = totalGaps2 / gaps2;
+	numlongGaps = totalGaps % gaps;
+	numlongGaps2 = totalGaps2 % gaps2;
+	printf("\n\n12345678901234567890123456789012345678901234567890\n");
+	display(firstLine, smallGap, numlongGaps);
+	printf("\n");
+	display(secondLine, smallGap2, numlongGaps2);
+}
+int readline(char *string){
+	int num;
+	num = 0;
+	gets(string);
+	num = strlen(string);
+	while(num > 50){
+		printf("The text is longer than the column width.\nPlease re-enter the line of text: ");
+		gets(string);
+		num = strlen(string);
+	}
+	return num;
+}
+int countgaps(char *string2){
+	int i, count;
+	i = 0;
+	count = 0;
+	while(string2[i] != '\0'){
+		if(string2[i] == ' '){
+			count += 1;
+		}
+		i++;
+	}
+	return count;
+}
+void display(char *string3, int a, int b){
+	int i, j;
+	i = 0;
+	j = 0;
+	while(true){
+		while(string3[i] != ' '){
+			if(string3[i] == '\0'){
+				return;
+			}
+			putchar(string3[i]);
+			i++;
+		}
+		if(b){
+			for(j = 0; j < a + 1; j++){
+				putchar(' ');
+			}
+			b--;
+		}else{
+			for(j = 0; j < a; j++){
+				putchar(' ');
+			}
+		}
+		i++;
+	}
+}
+	
