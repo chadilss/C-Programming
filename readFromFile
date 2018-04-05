@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>														// Chad Finch 	Student ID# 16151947		Assignment5		159.101 @ semester 2
+#include <stdbool.h>														
 
 FILE *f;
 
