@@ -1,0 +1,112 @@
+#include <stdio.h>		
+#include <stdbool.h>
+
+int day, month, year;
+bool leap;
+
+int main(){
+	printf("Enter a date in the form day month year: "); // prompts user for input of day in recommended form
+	scanf("%d%d%d", &day, &month, &year); // reads in input from the user
+	if((day >= 1) && (day <= 31)){
+		if((month >= 1) && (month <= 12)){
+			if((year >= 1) && (year <= 9999)){
+				if(year % 4 == 0){	// checks if year is a leap year.
+					leap = true;
+				}
+				if(year % 100 == 0){
+					leap = false;
+				}
+				if(year % 400 == 0){
+					leap = true;
+				}
+				if((leap) && (day > 1) && (day <= 29) && (month == 2)){ // if leap = true excutes
+					day = day - 1;
+					printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+				}else if((leap) && (day <= 1)){ // checks if leap year month day is 1 and if so reassigns day value for previous month and changes month value and year if january - nested if/else if statements.
+					if(month == 2){
+						day = 31;
+						month = month - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}else if(month == 1){
+						day = 31;
+						month = 12;
+						year = year - 1;
+						printf("The date of the previous day is no longer a leap year: %d/%d/%d\n", day, month, year);
+					}else if(month == 3){
+						day = 29;
+						month = month - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}else if(month == 8){
+						day = 31;
+						month = month - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}else if((month == 5) || (month == 7) || (month == 10) || (month == 12)){
+						day = 30;
+						month = month - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}else if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+						day = 31;
+						month = month - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}
+				}else if((leap) && (day > 1)){	// checks if leap year month day is greater than 1 and if so subtracts day value - nested if/else if statements.
+					if((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)){
+						day = day - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}else if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+						day = day - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}
+				}
+				if(!leap){ // leap == false 
+					if((day > 1) && (day <= 28) && (month == 2)){
+						day = day - 1;
+						printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+					}else if(day <= 1){	// test whether day is less than or equal to one.
+						if(month == 2){
+							day = 31;
+							month = month - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}else if(month == 1){
+							day = 31;
+							month = 12;
+							year = year - 1;
+							leap = false;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}else if(month == 3){
+							day = 28;
+							month = month - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}else if(month == 8){
+							day = 31;
+							month = month - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}else if((month == 5) || (month == 7) || (month == 10) || (month == 12)){
+							day = 30;
+							month = month - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}else if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+							day = 31;
+							month = month - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}
+					}else if(day > 1){ // test whether day is greater than one.
+						if((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)){
+							day = day - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}else if((month == 4) || (month == 6) || (month == 9) || (month == 11)){
+							day = day - 1;
+							printf("The date of the previous day is: %d/%d/%d\n", day, month, year);
+						}
+					}
+				}
+			}else{
+				printf("Please enter a valid year between 1 and 9999, you entered %d/%d/%d.\n", day, month, year); // gives error to user to enter valid year value
+			}
+		}else{
+			printf("Please enter a valid month between 1 and 12, you entered %d/%d/%d.\n", day, month, year);// gives error to user to enter valid month value
+		}
+	}else{
+		printf("Please enter a valid day between 1 and 31, you entered %d/%d/%d.\n", day, month, year); // gives error to user to enter valid day value
+	}
+}
