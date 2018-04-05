@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <math.h>
+
+FILE *f;
+
+int i, count;
+float readings[5]; 
+float average, total, tenper, twentyper, difference;
+
+int main(){
+	count = 0;
+	total = 0.0;
+	printf("Enter 5 voltages: ");
+	for(i = 0; i < 5; i++){
+		scanf("%f", &readings[i]);
+		total += readings[i];
+	}
+	average = total / 5.0;
+	tenper = average * 0.10;
+	twentyper = average * 0.20;
+	printf("The average is %4.1f volts.\n", average);
+	printf("10%% = %3.1f volts.\n", tenper);
+	printf("20%% = %3.1f volts.\n\n", twentyper);
+	for(i = 0; i < 5; i++){
+		difference = fabs(readings[i] - average);
+		if(difference > tenper){
+			if(count == 0){
+				printf("The following problems occurred:\n");
+			}
+			printf("%d. Voltage at hour %d was %3.1f volts (difference of %3.1f).\n",count+1, i+1, readings[i], difference);
+			count++; 
+		}
+	}
+	for(i = 0; i < 4; i++){
+		difference = fabs(readings[i] - readings[i+1]);
+		if(difference > twentyper){
+			if(count == 0){
+				printf("The following problems occurred");
+			}
+			printf("%d. Voltage change from hour %d to hour %d was %3.1f volts.\n",count+1, i+1, i+2, difference);
+			count++;
+		}
+	}
+	if(count == 0){
+		printf("No problems were encounted.");
+	}
+}
