@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int judges, counter;
+float lowestMark, highestMark, finalMark, mark;
+int main(){
+	judges = 0; 
+	counter = 1; 
+	mark = 0.0; 
+	lowestMark = 10.0; 
+	highestMark = 0.0; 
+	finalMark = 0.0;
+	printf("Please enter the number of judges between 5 and 9 "); 
+	scanf("%d", &judges);
+	while((judges < 5) || (judges > 9)){
+		printf("%d is invalid, value must be between 5 and 9 \nPlease re-enter ", judges);
+		scanf("%d", &judges); 
+		system("cls");
+	}
+	while(counter <= judges){ 
+		printf("Please enter a mark for judge %d: ", counter);
+		scanf("%f", &mark);
+		while((mark < 0.0) || (mark > 10.0)){
+			printf("%3.1f is invalid, mark should be between 0.0 and 10.0 \nPlease re-enter ", mark);
+			scanf("%f", &mark);
+			system("cls");
+		}
+		finalMark += mark;
+		if(mark < lowestMark){
+			lowestMark = mark;
+		}
+		if(mark > highestMark){
+			highestMark = mark;
+		}
+		counter++;
+	}
+	finalMark -= highestMark;
+	finalMark /= judges - 1;
+	printf("The highest mark is %3.1f, lowest is %3.1f, and final is %3.1f", highestMark, lowestMark, finalMark);
+}
